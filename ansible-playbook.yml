@@ -12,6 +12,9 @@
     - name: Start Docker Service
       command: sudo systemctl start docker
 
+    # Bugfix: Previously redeployment was not supported. Now it is!
+    # Earlier for second time depl. we first have to stop and delete the running cont. manually
+    # Now playbook auto. stops and delete and deploy the latest container
     - name: Stop existing container if running
       shell: |
         docker ps -q --filter "ancestor=abhiz2411/bankapp1" | grep -q . && docker stop $(docker ps -q --filter "ancestor=abhiz2411/bankapp1") || true
